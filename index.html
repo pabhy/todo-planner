@@ -17,6 +17,9 @@
       <div class="menu">
         <ul>
           <li>
+            <a href="#"><i class="fa fa-save" aria-hidden="true" title="Export Tasks"></i></a>
+          </li>
+          <li>
             <a href="#"><i class="fa fa-undo" aria-hidden="true" title="Undo"></i></a>
           </li>
           <li>
@@ -25,6 +28,52 @@
         </ul>
       </div>
     </nav>
+
+    <section class="action-bar">
+      <ul>
+        <li>
+          <input type="text" maxlength="200" class="add-task-input" placeholder="What needs to be done?"/>
+        </li>
+        <li>
+          <button>ADD</button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="task-list">
+      <ul>
+        <li>
+          <ul class="task">
+            <li class="task-sr">1. </li>
+            <li class="task-text">Clean your working desk</li>
+            <li class="task-star">
+              <button><i class="fa fa-star"></i></button>
+            </li>
+            <li class="task-complete">
+              <button><i class="fa fa-check"></i></button>
+            </li>
+            <li class="task-delete">
+              <button><i class="fa fa-times"></i></button>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <ul class="task">
+            <li class="task-sr">1. </li>
+            <li class="task-text">Clean your working desk</li>
+            <li class="task-star">
+              <button><i class="fa fa-star"></i></button>
+            </li>
+            <li class="task-complete">
+              <button><i class="fa fa-check"></i></button>
+            </li>
+            <li class="task-delete">
+              <button><i class="fa fa-times"></i></button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
   </div>
   <script src="./js/todo-planner.js"></script>
 </body>

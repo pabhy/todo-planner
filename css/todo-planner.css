@@ -14,7 +14,6 @@ html, body{
 .container {
   width: 1024px;
   margin: auto;
-  background-color: #f5f5f5;
 }
 
 nav {
@@ -24,8 +23,10 @@ nav {
   justify-content: space-between;
   height: 5rem;
   padding: 0 1rem;
+  background-color: #f5f5f5;
   color: #555555;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1.5rem;
 }
 
 nav .brand {
@@ -54,3 +55,127 @@ nav .menu {
 .menu li a {
   color: #555555;
 }
+
+.action-bar {
+  background-color: #f5f5f5;
+  height: 5rem;
+  line-height: 5rem;
+  padding: 0 1rem;
+  text-align: center;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.action-bar ul {
+  list-style-type: none;
+}
+
+.action-bar li {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+.action-bar li:first-child {
+  width: 80%;
+}
+
+.action-bar input {
+  width: 100%;
+  height: 2rem;
+  border: solid 2px #ccc;
+  padding: 5px 8px;
+  border-radius: 3px;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.action-bar input:focus {
+  border: solid 2px #aaa;
+  outline: none;
+}
+
+.action-bar button {
+  border-radius: 50%;
+  color: #555;
+  border: none;
+  height: 3.2rem;
+  width: 3.2rem;
+  outline: none;
+  cursor: pointer;
+}
+
+
+.task-list ul {
+  list-style-type: none;
+}
+
+.task-list > ul > li {
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.task li {
+  display: inline-block;
+  height: 4rem;
+  line-height: 4rem;
+  text-align: center;
+}
+
+.task .task-sr {
+  width: 7%;
+}
+
+.task .task-text {
+  width: 75%;
+  text-align: left;
+}
+
+.task .task-star, .task .task-complete, .task .task-delete {
+  width: 5%;
+}
+
+.task .task-star button, .task .task-complete button, .task .task-delete button {
+  border-radius: 50%;
+  color: #555;
+  border: none;
+  height: 3.2rem;
+  width: 3.2rem;
+  cursor: pointer;
+  outline: none;
+}
+
+/*
+
+.task-list table {
+  width: 100%;
+}
+
+ .task-list tr {
+  height: 5rem;
+  line-height: 5rem;
+  padding: 0 1rem;
+  text-align: center;
+  border: solid 1px #aaa;
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.task-list td {
+  margin: 5px 0;
+}
+
+.task-list td:first-child {
+  width: 5%;
+}
+
+.task-list td:nth-child(2) {
+  width: 90%;
+  padding: 0 1rem;
+  text-align: left;
+}
+
+.task-list td:last-child {
+  width: 5%;
+} */
