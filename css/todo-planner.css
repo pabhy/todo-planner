@@ -23,9 +23,9 @@ nav {
   justify-content: space-between;
   height: 5rem;
   padding: 0 1rem;
-  background-color: #f5f5f5;
-  color: #555555;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+  background-color: #4196c2;
+  color: #FFFFE3;
+  /*box-shadow: 0px 0px 2px 0px #2C3E50;*/
   margin-bottom: 1.5rem;
 }
 
@@ -48,21 +48,21 @@ nav .menu {
 
 .menu li{
   display: inline-block;
-  margin: 0 0.6rem;
-  font-size: 1.5rem;
+  margin: 0 0.8rem;
+  font-size: 1.4rem;
 }
 
 .menu li a {
-  color: #555555;
+  color: #FFFFE3;
 }
 
 .action-bar {
-  background-color: #f5f5f5;
+  background-color: #f9fbfc;
   height: 5rem;
   line-height: 5rem;
   padding: 0 1rem;
   text-align: center;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+  /*box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);*/
   margin-bottom: 1rem;
 }
 
@@ -76,43 +76,62 @@ nav .menu {
 }
 
 .action-bar li:first-child {
-  width: 80%;
+  width: 75%;
 }
 
-.action-bar input {
+.action-bar input[type="text"] {
   width: 100%;
   height: 2rem;
-  border: solid 2px #ccc;
+  border: solid 2px #DCE4EC;
   padding: 5px 8px;
   border-radius: 3px;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
-}
-
-.action-bar input:focus {
-  border: solid 2px #aaa;
   outline: none;
 }
 
-.action-bar button {
+.action-bar input[type="text"]:focus {
+  border: solid 2px #8fc3da;
+}
+
+.action-bar button[type="submit"] {
   border-radius: 50%;
-  color: #555;
-  border: none;
+  border: solid 2px #4196c2;
+  background-color: #4196c2;
+  color: #fff;
   height: 3.2rem;
   width: 3.2rem;
   outline: none;
   cursor: pointer;
+  vertical-align: middle;
 }
 
+.action-bar button[type="submit"]:disabled {
+  border: solid 2px #8fc3da;
+  background-color: #e7f7ff;
+  color: #b1d6e7;
+}
+
+.action-bar button ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-top: -0.1rem;
+}
+
+.action-bar button li {
+  padding: 0;
+  margin: 0;
+}
 
 .task-list ul {
   list-style-type: none;
 }
 
 .task-list > ul > li {
-  background-color: #f5f5f5;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+  background-color: #f9fbfc;
+  /*box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);*/
   margin-bottom: 0.5rem;
 }
 
@@ -123,59 +142,51 @@ nav .menu {
   text-align: center;
 }
 
-.task .task-sr {
-  width: 7%;
+.task li:first-child {
+  width: 10%;
 }
 
-.task .task-text {
-  width: 75%;
-  text-align: left;
+.task li:nth-child(2) {
+  width: 79%;
 }
 
-.task .task-star, .task .task-complete, .task .task-delete {
-  width: 5%;
+.task li:last-child {
+  width: 10%;
 }
 
-.task .task-star button, .task .task-complete button, .task .task-delete button {
+.task .task-serial {
   border-radius: 50%;
-  color: #555;
-  border: none;
   height: 3.2rem;
   width: 3.2rem;
+  outline: none;
+  cursor: pointer;
+  vertical-align: middle;
+  border: solid 2px #8fc3da;
+  background-color: #e7f7ff;
+  color: #b1d6e7;
+  font-size: 1.2rem;
+}
+
+.task .task-description input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  width: 100%;
+  color: #2C3E50;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.task .task-star button {
+  background: transparent;
+  text-align: center;
+  border: none;
   cursor: pointer;
   outline: none;
-}
-
-/*
-
-.task-list table {
+  font-size: 1.5rem;
+  height: 100%;
   width: 100%;
+  padding: 0 2rem;
+  margin: auto;
+  color: #dfe4e6;
 }
-
- .task-list tr {
-  height: 5rem;
-  line-height: 5rem;
-  padding: 0 1rem;
-  text-align: center;
-  border: solid 1px #aaa;
-  background-color: #f5f5f5;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
-}
-
-.task-list td {
-  margin: 5px 0;
-}
-
-.task-list td:first-child {
-  width: 5%;
-}
-
-.task-list td:nth-child(2) {
-  width: 90%;
-  padding: 0 1rem;
-  text-align: left;
-}
-
-.task-list td:last-child {
-  width: 5%;
-} */

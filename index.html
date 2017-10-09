@@ -14,10 +14,12 @@
       <div class="brand">
         <h1>Tasks</h1>
       </div>
-      <div class="menu">
+      <div class="menu" id="menu">
         <ul>
           <li>
-            <a href="#"><i class="fa fa-save" aria-hidden="true" title="Export Tasks"></i></a>
+            <a href="#">
+              <i class="fa fa-save" id="exportBtn" aria-hidden="true" title="Export Tasks"></i>
+            </a>
           </li>
           <li>
             <a href="#"><i class="fa fa-undo" aria-hidden="true" title="Undo"></i></a>
@@ -30,48 +32,39 @@
     </nav>
 
     <section class="action-bar">
-      <ul>
-        <li>
-          <input type="text" maxlength="200" class="add-task-input" placeholder="What needs to be done?"/>
-        </li>
-        <li>
-          <button>ADD</button>
-        </li>
-      </ul>
+      <form name="actionBarForm" id="actionBarForm">
+        <ul>
+            <li>
+              <input type="text" maxlength="80" class="add-task-input" name="addTaskDescription"
+                id="addTaskDescription" placeholder="What needs to be done?"
+                autocomplete="off" autofocus tabindex="1" />
+            </li>
+            <li>
+              <button type="submit" name="addTaskBtn" id="addTaskBtn" tabindex="2">
+                <ul>
+                  <li>+</li>
+                  <li>ADD</li>
+                </ul>
+              </button>
+            </li>
+          </ul>
+      </form>
     </section>
 
     <section class="task-list">
-      <ul>
-        <li>
+      <ul id="task-list">
+        <!-- <li>
           <ul class="task">
-            <li class="task-sr">1. </li>
-            <li class="task-text">Clean your working desk</li>
+            <li>
+              <button class="task-serial">1</button>
+            </li>
+            <li class="task-description">
+              <input type="text" maxlength="90" value="really long task that has nothing to do with anything that i am typing"></li>
             <li class="task-star">
               <button><i class="fa fa-star"></i></button>
             </li>
-            <li class="task-complete">
-              <button><i class="fa fa-check"></i></button>
-            </li>
-            <li class="task-delete">
-              <button><i class="fa fa-times"></i></button>
-            </li>
           </ul>
-        </li>
-        <li>
-          <ul class="task">
-            <li class="task-sr">1. </li>
-            <li class="task-text">Clean your working desk</li>
-            <li class="task-star">
-              <button><i class="fa fa-star"></i></button>
-            </li>
-            <li class="task-complete">
-              <button><i class="fa fa-check"></i></button>
-            </li>
-            <li class="task-delete">
-              <button><i class="fa fa-times"></i></button>
-            </li>
-          </ul>
-        </li>
+        </li> -->
       </ul>
     </section>
   </div>
