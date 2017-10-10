@@ -12,14 +12,21 @@
   <div class="container">
     <nav>
       <div class="brand">
-        <h1>Tasks</h1>
+        <h1>To Do Planner</h1>
       </div>
       <div class="menu" id="menu">
         <ul>
           <li>
             <a href="#">
-              <i class="fa fa-save" id="exportBtn" aria-hidden="true" title="Export Tasks"></i>
+              <i class="fa fa-upload" id="importBtn" aria-hidden="true" title="Import Tasks"></i>
             </a>
+            <input type="file" id="importLink">
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-download" id="exportBtn" aria-hidden="true" title="Export Tasks"></i>
+            </a>
+            <a id="downloadLink"></a>
           </li>
           <li>
             <a href="#"><i class="fa fa-undo" aria-hidden="true" title="Undo"></i></a>

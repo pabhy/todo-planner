@@ -63,6 +63,7 @@
 
     var _addTask = function(task) {
       _taskList.push(task);
+      console.log(_taskList);
       _reloadTaskList();
     }
 
@@ -92,6 +93,40 @@
       task.description = description;
     }
 
+    var exportTasks = function() {
+      if (_taskList.length > 0) {
+        var INDENT_TAB_SIZE = 2,
+            downloadLink = document.getElementById('downloadLink');
+        var exportContent = 'data:text/json;charset=utf-8,' +
+          encodeURIComponent(JSON.stringify(_taskList, null, INDENT_TAB_SIZE));
+        downloadLink.setAttribute('href', exportContent);
+        downloadLink.setAttribute('download', 'todo_tasks_' + Date.now() +'.json');
+        downloadLink.click();
+      }
+    }
+
+    var importTasks = function() {
+      var _importLink = document.getElementById('importLink'),
+          _fileReader = new FileReader();
+
+      _fileReader.onload = function(e) {
+        var _data = JSON.parse(e.target.result);
+        if (Array.isArray(_data)) {
+          _data.map(function(task) {
+            _addTask(task);
+          });
+        }
+      }
+
+      _importLink.onchange = function() {
+        if (_importLink.files.length > 0) {
+          _fileReader.readAsText(_importLink.files[0], 'UTF-8');
+        }
+      }
+
+      _importLink.click();
+    }
+
     var init = function() {
       addTaskBtn.disabled = true;
       addTaskDescription.addEventListener('keyup', function() {
@@ -112,7 +147,9 @@
       init: init,
       deleteTask: deleteTask,
       toggleTaskStar: toggleTaskStar,
-      saveTask: saveTask
+      saveTask: saveTask,
+      exportTasks: exportTasks,
+      importTasks: importTasks
     };
 
   }(Task);
@@ -145,7 +182,9 @@
 
       _menuBar.addEventListener('click', function(e) {
         if (e.target.id === 'exportBtn') {
-
+          view.exportTasks();
+        } else if (e.target.id === 'importBtn') {
+          view.importTasks();
         }
       });
     }
