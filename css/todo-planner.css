@@ -52,8 +52,18 @@ nav .menu {
   font-size: 1.4rem;
 }
 
-.menu li a {
+.menu li button {
+  display: inline-block;
+  font-size: 1.4rem;
+  border: none;
+  outline: none;
+  background: transparent;
   color: #FFFFE3;
+  cursor: pointer;
+}
+
+.menu li button:disabled {
+  color: #7ab6d4;
 }
 
 #downloadLink {

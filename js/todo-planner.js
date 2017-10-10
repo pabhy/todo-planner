@@ -14,7 +14,10 @@
   var VIEW = function(Task) {
 
     var _taskList = [],
+        _undoStack = [],
+        _redoStack = [],
         _taskListElement = document.getElementById('task-list');
+
 
     var _getTask = function(id) {
       id = Number.parseInt(id);
@@ -41,6 +44,7 @@
       _clearTaskList();
       _taskList.map(function(task, index) {
         _renderTask(_createTaskMarkup(task, index + 1));
+        _setStarColor(task.id, task.isPriority);
       });
     }
 
@@ -62,12 +66,12 @@
     }
 
     var _addTask = function(task) {
+      _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
       _taskList.push(task);
-      console.log(_taskList);
       _reloadTaskList();
     }
 
-    var _toggleColor = function(id, isPriority) {
+    var _setStarColor = function(id, isPriority) {
       var _starIcon = document.getElementById('star-' + id),
           ISPRIORITY_TRUE_COLOR = '#ffc38e',
           ISPRIORITY_FALSE_COLOR = '#dfe4e6';
@@ -76,6 +80,7 @@
 
     var deleteTask = function(taskId) {
       taskId = Number.parseInt(taskId);
+      _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
       _taskList = _taskList.filter(function(task) {
         return task.id !== taskId;
       });
@@ -83,9 +88,10 @@
     }
 
     var toggleTaskStar = function(id) {
+      _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
       var task = _getTask(id);
       task.isPriority = !task.isPriority;
-      _toggleColor(id, task.isPriority);
+      _setStarColor(id, task.isPriority);
     }
 
     var saveTask = function(id, description) {
@@ -111,6 +117,7 @@
 
       _fileReader.onload = function(e) {
         var _data = JSON.parse(e.target.result);
+        _importLink.value = '';
         if (Array.isArray(_data)) {
           _data.map(function(task) {
             _addTask(task);
@@ -127,8 +134,27 @@
       _importLink.click();
     }
 
+    var undo = function() {
+      if (_undoStack.length > 0) {
+        _taskList = _undoStack.pop();
+        _redoStack.push(JSON.parse(JSON.stringify(_taskList)));
+        _reloadTaskList();
+      }
+    }
+
+    var redo = function() {
+      if (_redoStack.length > 0) {
+        _taskList = _redoStack.pop();
+        _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
+        _reloadTaskList();
+      }
+    }
+
     var init = function() {
       addTaskBtn.disabled = true;
+      //document.getElementById('undoBtn').disabled = true;
+      document.getElementById('redoBtn').disabled = true;
+
       addTaskDescription.addEventListener('keyup', function() {
         addTaskBtn.disabled = (addTaskDescription.value.trim()) ? false : true;
       });
@@ -149,7 +175,9 @@
       toggleTaskStar: toggleTaskStar,
       saveTask: saveTask,
       exportTasks: exportTasks,
-      importTasks: importTasks
+      importTasks: importTasks,
+      undo: undo,
+      redo: redo
     };
 
   }(Task);
@@ -181,7 +209,11 @@
 
 
       _menuBar.addEventListener('click', function(e) {
-        if (e.target.id === 'exportBtn') {
+        if (e.target.id === 'undoBtn') {
+          view.undo();
+        } else if (e.target.id === 'redoBtn') {
+          view.redo();
+        }else if (e.target.id === 'exportBtn') {
           view.exportTasks();
         } else if (e.target.id === 'importBtn') {
           view.importTasks();
