@@ -7,17 +7,36 @@
     this.isPriority = false;
   }
 
-  var MODEL = function() {
+  var STORAGE = function() {
+    var STORAGE_KEY = 'TODO_PLANNER';
+
+    var read = function() {
+      if (localStorage) {
+        var _data = localStorage.getItem(STORAGE_KEY);
+        return ((_data) ? JSON.parse(_data) : []);
+      }
+      return [];
+    }
+
+    var write = function(data) {
+      if (localStorage) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+    }
+
+    return {
+      read: read,
+      write: write
+    }
 
   }();
 
-  var VIEW = function(Task) {
+  var VIEW = function(Task, storage) {
 
     var _taskList = [],
         _undoStack = [],
         _redoStack = [],
         _taskListElement = document.getElementById('task-list');
-
 
     var _getTask = function(id) {
       id = Number.parseInt(id);
@@ -68,6 +87,7 @@
     var _addTask = function(task) {
       _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
       _taskList.push(task);
+      storage.write(_taskList);
       _reloadTaskList();
     }
 
@@ -84,6 +104,7 @@
       _taskList = _taskList.filter(function(task) {
         return task.id !== taskId;
       });
+      storage.write(_taskList);
       _reloadTaskList();
     }
 
@@ -92,11 +113,13 @@
       var task = _getTask(id);
       task.isPriority = !task.isPriority;
       _setStarColor(id, task.isPriority);
+      storage.write(_taskList);
     }
 
     var saveTask = function(id, description) {
       var task = _getTask(id);
       task.description = description;
+      storage.write(_taskList);
     }
 
     var exportTasks = function() {
@@ -138,6 +161,7 @@
       if (_undoStack.length > 0) {
         _taskList = _undoStack.pop();
         _redoStack.push(JSON.parse(JSON.stringify(_taskList)));
+        storage.write(_taskList);
         _reloadTaskList();
       }
     }
@@ -146,14 +170,16 @@
       if (_redoStack.length > 0) {
         _taskList = _redoStack.pop();
         _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
+        storage.write(_taskList);
         _reloadTaskList();
       }
     }
 
     var init = function() {
       addTaskBtn.disabled = true;
-      //document.getElementById('undoBtn').disabled = true;
-      document.getElementById('redoBtn').disabled = true;
+
+      _taskList = storage.read();
+      _reloadTaskList();
 
       addTaskDescription.addEventListener('keyup', function() {
         addTaskBtn.disabled = (addTaskDescription.value.trim()) ? false : true;
@@ -180,9 +206,9 @@
       redo: redo
     };
 
-  }(Task);
+  }(Task, STORAGE);
 
-  var CONTROLLER = function(view, model) {
+  var CONTROLLER = function(view) {
 
     var _taskListElement = document.getElementById('task-list');
     var _menuBar = document.getElementById('menu');
@@ -227,6 +253,6 @@
       _setupListeners();
     }();
 
-  }(VIEW, MODEL);
+  }(VIEW);
 
 })();
