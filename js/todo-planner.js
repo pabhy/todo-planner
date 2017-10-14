@@ -31,11 +31,37 @@
 
   }();
 
-  var VIEW = function(Task, storage) {
+
+  var ActionStack = function(element) {
+    this.stack = [];
+    this.btn = element;
+  };
+
+  ActionStack.prototype.push = function(data) {
+    if (data.length > 0) {
+      this.stack.push(data);
+      this.btn.disabled = false;
+    }
+  };
+
+  ActionStack.prototype.pop = function() {
+    var data = this.stack.pop();
+    if (!this.seek()) {
+      this.btn.disabled = true;
+    }
+    return data;
+  };
+
+  ActionStack.prototype.seek = function() {
+    return this.stack.length;
+  };
+
+
+  var VIEW = function(Task, storage, ActionStack) {
 
     var _taskList = [],
-        _undoStack = [],
-        _redoStack = [],
+        _undoStack = new ActionStack(document.getElementById('undoBtn')),
+        _redoStack = new  ActionStack(document.getElementById('redoBtn')),
         _taskListElement = document.getElementById('task-list');
 
     var _getTask = function(id) {
@@ -117,6 +143,7 @@
     }
 
     var saveTask = function(id, description) {
+      _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
       var task = _getTask(id);
       task.description = description;
       storage.write(_taskList);
@@ -158,18 +185,18 @@
     }
 
     var undo = function() {
-      if (_undoStack.length > 0) {
-        _taskList = _undoStack.pop();
+      if (_undoStack.seek()) {
         _redoStack.push(JSON.parse(JSON.stringify(_taskList)));
+        _taskList = _undoStack.pop();
         storage.write(_taskList);
         _reloadTaskList();
       }
     }
 
     var redo = function() {
-      if (_redoStack.length > 0) {
-        _taskList = _redoStack.pop();
+      if (_redoStack.seek()) {
         _undoStack.push(JSON.parse(JSON.stringify(_taskList)));
+        _taskList = _redoStack.pop();
         storage.write(_taskList);
         _reloadTaskList();
       }
@@ -177,6 +204,9 @@
 
     var init = function() {
       addTaskBtn.disabled = true;
+
+      document.getElementById('undoBtn').disabled = true;
+      document.getElementById('redoBtn').disabled = true;
 
       _taskList = storage.read();
       _reloadTaskList();
@@ -206,7 +236,7 @@
       redo: redo
     };
 
-  }(Task, STORAGE);
+  }(Task, STORAGE, ActionStack);
 
   var CONTROLLER = function(view) {
 
